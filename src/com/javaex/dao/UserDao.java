@@ -135,18 +135,18 @@ public class UserDao {
 
 			// 3. SQL문 준비 / 바인딩 / 실행
 			String query = " update users " +
-							" set name=?, " + 
+							" set name=?, " +
+							"    email=?, " +
 							"    password=?," + 
 							"    gender=?" + 
 							" where no=? ";
 			pstmt = conn.prepareStatement(query);
 
 			pstmt.setString(1, vo.getName());
-			pstmt.setString(2, vo.getPassword());
-			pstmt.setString(3, vo.getGender());
-			pstmt.setInt(4, vo.getNo());
-			
-			System.out.println(vo.toString());
+			pstmt.setString(2, vo.getEmail());
+			pstmt.setString(3, vo.getPassword());
+			pstmt.setString(4, vo.getGender());
+			pstmt.setInt(5, vo.getNo());
 			
 			int count = pstmt.executeUpdate(); // 따로 적어준 값들을 조합해주어, DB로 날려주게 됨.
 			// 4.결과처리

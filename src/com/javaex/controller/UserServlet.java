@@ -91,11 +91,14 @@ public class UserServlet extends HttpServlet {
 
 			HttpSession session = request.getSession();
 			UserVo userVo = (UserVo)session.getAttribute("authUser");
+			
 			String name = request.getParameter("name");
+			String email = request.getParameter("email");
 			String password = request.getParameter("password");
 			String gender = request.getParameter("gender");
 
 			vo.setName(name);
+			vo.setEmail(email);
 			vo.setPassword(password);
 			vo.setGender(gender);
 			vo.setNo(userVo.getNo());
