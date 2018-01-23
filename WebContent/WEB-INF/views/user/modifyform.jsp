@@ -34,7 +34,7 @@
 				
 		<div id="navigation">
 			<ul>
-				<li><a href="">황일영</a></li>
+				<li><a href="">소한준</a></li>
 				<li><a href="">방명록</a></li>
 				<li><a href="">게시판</a></li>
 			</ul>
@@ -51,10 +51,10 @@
 						<input id="name" name="name" type="text" value=<%=authUser.getName()%> />
 	
 						<label class="block-label" for="email">이메일</label>
-						<strong><%=authUser.getEmail()%></strong>
+						<strong><input name="email" type="email" value=<%=authUser.getEmail()%> /></strong>
 						
 						<label class="block-label">패스워드</label>
-						<input name="password" type="password" value="<%=authUser.getPassword()%>" />
+						<input name="password" type="password" value=<%=authUser.getPassword()%> />
 						
 						<fieldset>
 							<legend>성별</legend>

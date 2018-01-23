@@ -1,6 +1,8 @@
 package com.javaex.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -61,9 +63,9 @@ public class UserServlet extends HttpServlet {
 			
 			UserDao userDao=new UserDao();
 			UserVo userVo=userDao.getUser(email, password);
-			//가지고 있는 userVo를 세션공간 안에 넣어둘 예정임
+			//userVo에 해당하는 no,name을 가지고 있음
 			if(userVo==null) {
-				System.out.println("로그인 실패");
+				System.out.println("로그인 실패"); //db 안에 해당 no,name이 없으면 null값임.
 			} else {
 				System.out.println("로그인 성공");
 				HttpSession session=request.getSession(); //요청문서에서 session번호를 꺼내 저장함.
@@ -73,19 +75,36 @@ public class UserServlet extends HttpServlet {
 			}
 		} else if ("logout".equals(actionform)) {
 			HttpSession session=request.getSession();
-			session.removeAttribute("authUser");
-			session.invalidate();
+			session.removeAttribute("authUser"); //지정된 이름에 해당하는 객체를 세션에서 제거한다.
+			session.invalidate(); //해당세션을 없애고 세션에 속해있는 값들을 없앤다.
 			
 			WebUtil.redirect(request, response, "/mysite/main");
 		} else if ("modifyform".equals(actionform)) {
 			System.out.println("modifyform 진입");
+			
 			WebUtil.forward(request, response, "/WEB-INF/views/user/modifyform.jsp");
 		} else if ("modify".equals(actionform)) {
 			System.out.println("modify 진입");
 			
-			
+			UserDao dao = new UserDao();
+			UserVo vo = new UserVo();
+
+			HttpSession session = request.getSession();
+			UserVo userVo = (UserVo)session.getAttribute("authUser");
+			String name = request.getParameter("name");
+			String password = request.getParameter("password");
+			String gender = request.getParameter("gender");
+
+			vo.setName(name);
+			vo.setPassword(password);
+			vo.setGender(gender);
+			vo.setNo(userVo.getNo());
+
+			dao.modify(vo);
+
+			session.setAttribute("authUser", vo);
+			WebUtil.redirect(request, response, "/mysite/main");
 		}
-	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
