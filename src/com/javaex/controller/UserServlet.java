@@ -66,6 +66,8 @@ public class UserServlet extends HttpServlet {
 			//userVo에 해당하는 no,name을 가지고 있음
 			if(userVo==null) {
 				System.out.println("로그인 실패"); //db 안에 해당 no,name이 없으면 null값임.
+				
+				WebUtil.redirect(request, response, "/mysite/user?a=loginform&result=fail"); //실패시에만 오류메시지 출력하도록 하기위한 작업
 			} else {
 				System.out.println("로그인 성공");
 				HttpSession session=request.getSession(); //요청문서에서 session번호를 꺼내 저장함.
@@ -81,32 +83,52 @@ public class UserServlet extends HttpServlet {
 			WebUtil.redirect(request, response, "/mysite/main");
 		} else if ("modifyform".equals(actionform)) {
 			System.out.println("modifyform 진입");
+			//세션에서 no(pk값) 가져오기(session에서 getNo()), 만약 없다면? 직접 주소에 a=modify치고 들어오는 사람이 있다면, 세션에 값이 없어도 수정을 하는 경우가 생김
+			HttpSession session= request.getSession();
+			UserVo authUser=(UserVo)session.getAttribute("authUser");
 			
-			WebUtil.forward(request, response, "/WEB-INF/views/user/modifyform.jsp");
+			if (authUser==null) {
+				//세션 없다면 로그인폼으로 이동
+			} else { //로그인 상태
+				//로그인회원의 no
+				int no=authUser.getNo();
+				//데이터 가져옴
+				UserDao userDao=new UserDao();
+				UserVo userVo=userDao.getUser(no);
+				//담음
+				//데이터 리퀘스트에 담아 보내기
+				request.setAttribute("userVo", userVo);
+				WebUtil.forward(request, response, "/WEB-INF/views/user/modifyform.jsp");
+			}
 		} else if ("modify".equals(actionform)) {
 			System.out.println("modify 진입");
 			
-			UserDao dao = new UserDao();
-			UserVo vo = new UserVo();
-
-			HttpSession session = request.getSession();
-			UserVo userVo = (UserVo)session.getAttribute("authUser");
+			//session정보도 업데이트 해준다.
+			HttpSession session= request.getSession();
+			UserVo authUser=(UserVo)session.getAttribute("authUser");//UserVo에 맞춰서, 세션공간의 주소값이 authUser에 저장됨.
 			
-			String name = request.getParameter("name");
-			String email = request.getParameter("email");
-			String password = request.getParameter("password");
-			String gender = request.getParameter("gender");
-
-			vo.setName(name);
-			vo.setEmail(email);
-			vo.setPassword(password);
-			vo.setGender(gender);
-			vo.setNo(userVo.getNo());
-
-			dao.modify(vo);
-
-			session.setAttribute("authUser", vo);
-			WebUtil.redirect(request, response, "/mysite/main");
+			if (authUser==null) {
+				//세션 없다면 로그인폼으로 이동
+			} else { //로그인 상태
+				//modifyform에서 변수값 넘겨받기.
+				//vo(no,name,password,gender)을 받아, vo에 저장하기
+				int no=authUser.getNo();
+				String name=request.getParameter("name");
+				String password=request.getParameter("password");
+				String gender=request.getParameter("gender");
+				
+				UserVo userVo=new UserVo(no,name,"",password,gender);
+				
+				//dao.update(userVo) 그 값들로 업데이트해주기
+				UserDao userDao=new UserDao();
+				userDao.update(userVo);
+				
+				//session에 있는 name도 바뀌어야, main홈에서 사용자의 이름이 바뀜, no는 고유값이므로 바꾸지x
+				authUser.setName(name); //UserVo 클래스이므로, 생성자와 메소드 이용가능. 
+				
+				//main으로 redirect
+				WebUtil.redirect(request, response, "/mysite/main");
+			}
 		}
 	}
 

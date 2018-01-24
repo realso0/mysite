@@ -1,9 +1,8 @@
 <%@page import="com.javaex.vo.UserVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <% 
-	
-	UserVo authUser=(UserVo)session.getAttribute("authUser"); //객체에 무엇이 들어갈지 모르므로, 형변환을 해줘야 한다.
-
+	UserVo userVo=(UserVo)request.getAttribute("userVo"); //객체에 무엇이 들어갈지 모르므로, 형변환을 해줘야 한다.
+	//세션과 리퀘스트 헷갈리지 않게 데이터를 뽑아야함.
 %>
 <!DOCTYPE html>
 <html>
@@ -16,29 +15,13 @@
 
 	<div id="container">
 		
-		<div id="header">
-			<h1>MySite</h1>
-			<ul>
-				<!-- 로그인 전 -->
-				<li><a href="/mysite/user?a=loginform">로그인</a></li>
-				<li><a href="/mysite/user?a=joinform">회원가입</a></li>
+		<!-- /header -->
+		<jsp:include page="/WEB-INF/views/includes/header.jsp"></jsp:include>
+		
 				
-				<!-- 로그인 후 -->
-				<!-- 
-				<li><a href="">회원정보수정</a></li>
-				<li><a href="">로그아웃</a></li> 
-				<li> 황일영님 안녕하세요^^;</li>
-				-->
-			</ul>
-		</div> <!-- /header -->
-				
-		<div id="navigation">
-			<ul>
-				<li><a href="">소한준</a></li>
-				<li><a href="">방명록</a></li>
-				<li><a href="">게시판</a></li>
-			</ul>
-		</div> <!-- /navigation -->
+		<!-- /navigation -->
+		<jsp:include page="/WEB-INF/views/includes/navigation.jsp"></jsp:include>
+			
 		
 		<div id="wrapper">
 			<div id="content">
@@ -48,20 +31,23 @@
 
 						
 						<label class="block-label" for="name">이름</label>
-						<input id="name" name="name" type="text" value=<%=authUser.getName()%> />
+						<input id="name" name="name" type="text" value="<%=userVo.getName() %>" />
 	
 						<label class="block-label" for="email">이메일</label>
-						<strong><input name="email" type="email" value=<%=authUser.getEmail()%> /></strong>
+						<strong><%=userVo.getEmail() %></strong> <!-- 못바꾸게 하기 위해서 input이 없음. -->
 						
 						<label class="block-label">패스워드</label>
-						<input name="password" type="password" value=<%=authUser.getPassword()%> />
+						<input name="password" type="password" value="<%=userVo.getPassword() %>" />
 						
 						<fieldset>
 							<legend>성별</legend>
-							
+							<% if ("male".equals(userVo.getGender()))  { %>
 							<label>여</label> <input type="radio" name="gender" value="female" >
 							<label>남</label> <input type="radio" name="gender" value="male" checked="checked">
-							
+							<% } else { %>
+							<label>여</label> <input type="radio" name="gender" value="female" checked="checked">
+							<label>남</label> <input type="radio" name="gender" value="male">
+							<% } %>
 						</fieldset>
 						<input type="text" name="a" value="modify"> <!-- 무조건  modify작업을 수행하도록 지정 -->
 						<input type="submit" value="수정완료">
@@ -70,9 +56,9 @@
 			</div><!-- /content -->
 		</div><!-- /wrapper -->
 		
-		<div id="footer">
-			<p>(c)opyright 2015,2016,2017</p>
-		</div> <!-- /footer -->
+		<!-- /footer -->
+		<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
+		
 		
 	</div> <!-- /container -->
 

@@ -12,7 +12,7 @@ public class UserVo {
 	}
 	
 	public UserVo(int no, String name, String email, String password, String gender) {
-		super();
+
 		this.no = no;
 		this.name = name;
 		this.email = email;
