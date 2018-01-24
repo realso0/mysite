@@ -1,8 +1,6 @@
 package com.javaex.controller;
 
 import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +16,7 @@ public class MainServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		
+		System.out.println("main");
 //		RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/views/main/index.jsp");
 //		rd.forward(request, response);
 		WebUtil.forward(request, response, "/WEB-INF/views/main/index.jsp");
