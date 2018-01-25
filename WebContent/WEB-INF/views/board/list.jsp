@@ -35,12 +35,13 @@
 					</tr>				
 					<c:forEach items="${requestScope.elist}" var="list">
 					<tr>
-						<td>1</td>
-						<td><a href="">${list.title}</a></td>
+						<td>${list.no}</td>
+						<td><a href="/mysite/board?a=view&title=${list.title}">${list.title}</a></td>
+						
 						<td>${list.name}</td>
 						<td>3</td>
 						<td>${list.regDate}</td>
-						<td><a href="" class="del">삭제</a></td>
+						<td><a href="/mysite/board?a=delete&userNo=${list.userNo}&no=${list.no}" class="del">삭제</a></td>
 					</tr>
 					</c:forEach>
 				</table>

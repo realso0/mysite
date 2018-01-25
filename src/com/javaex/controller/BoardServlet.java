@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.javaex.dao.BoardDao;
+import com.javaex.dao.GuestbookDao;
 import com.javaex.util.WebUtil;
 import com.javaex.vo.BoardVo;
 import com.javaex.vo.UserVo;
@@ -68,7 +69,26 @@ public class BoardServlet extends HttpServlet {
 			dao.insert(vo);
 			
 			WebUtil.redirect(request, response, "/mysite/board?a=list");
-		} 
+		} else if ("view".equals(actionform)) {
+			
+			
+			WebUtil.forward(request, response, "/WEB-INF/views/board/view.jsp");
+		} else if ("delete".equals(actionform)) {
+			HttpSession session=request.getSession(); //요청문서에서 session번호를 꺼내 저장함.
+			
+			int no=Integer.valueOf(request.getParameter("no"));
+			int userNo = Integer.valueOf(request.getParameter("userNo"));
+			UserVo authUser=(UserVo)session.getAttribute("authUser");
+			
+			if (userNo==authUser.getNo()) {
+				BoardDao dao=new BoardDao();
+				dao.delete(no);
+				WebUtil.redirect(request, response, "/mysite/board?a=list");
+			} else {
+				WebUtil.redirect(request, response, "/mysite/board?a=list");
+			}
+			
+		}
 	}
 
 
