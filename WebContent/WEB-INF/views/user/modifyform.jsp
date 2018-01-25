@@ -1,9 +1,6 @@
-<%@page import="com.javaex.vo.UserVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<% 
-	UserVo userVo=(UserVo)request.getAttribute("userVo"); //객체에 무엇이 들어갈지 모르므로, 형변환을 해줘야 한다.
-	//세션과 리퀘스트 헷갈리지 않게 데이터를 뽑아야함.
-%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,12 +13,11 @@
 	<div id="container">
 		
 		<!-- /header -->
-		<jsp:include page="/WEB-INF/views/includes/header.jsp"></jsp:include>
-		
+		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
 				
 		<!-- /navigation -->
-		<jsp:include page="/WEB-INF/views/includes/navigation.jsp"></jsp:include>
-			
+		<c:import url="/WEB-INF/views/includes/navigation.jsp"></c:import>
+				
 		
 		<div id="wrapper">
 			<div id="content">
@@ -31,23 +27,24 @@
 
 						
 						<label class="block-label" for="name">이름</label>
-						<input id="name" name="name" type="text" value="<%=userVo.getName() %>" />
+						<input id="name" name="name" type="text" value="${requestScope.userVo.name}" />
 	
 						<label class="block-label" for="email">이메일</label>
-						<strong><%=userVo.getEmail() %></strong> <!-- 못바꾸게 하기 위해서 input이 없음. -->
+						<strong>${requestScope.userVo.email}</strong> <!-- 못바꾸게 하기 위해서 input이 없음. -->
 						
 						<label class="block-label">패스워드</label>
-						<input name="password" type="password" value="<%=userVo.getPassword() %>" />
+						<input name="password" type="password" value="${requestScope.userVo.password}" />
 						
 						<fieldset>
 							<legend>성별</legend>
-							<% if ("male".equals(userVo.getGender()))  { %>
+							<c:if test="${requestScope.userVo.gender=='male'}">
 							<label>여</label> <input type="radio" name="gender" value="female" >
 							<label>남</label> <input type="radio" name="gender" value="male" checked="checked">
-							<% } else { %>
+							</c:if>
+							<c:if test="${requestScope.userVo.gender=='female'}">
 							<label>여</label> <input type="radio" name="gender" value="female" checked="checked">
 							<label>남</label> <input type="radio" name="gender" value="male">
-							<% } %>
+							</c:if>
 						</fieldset>
 						<input type="text" name="a" value="modify"> <!-- 무조건  modify작업을 수행하도록 지정 -->
 						<input type="submit" value="수정완료">
