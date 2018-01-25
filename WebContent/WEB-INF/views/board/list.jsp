@@ -33,30 +33,16 @@
 						<th>작성일</th>
 						<th>&nbsp;</th>
 					</tr>				
-					<tr>
-						<td>3</td>
-						<td><a href="">세 번째 글입니다.</a></td>
-						<td>황일영</td>
-						<td>3</td>
-						<td>2015-10-11 12:04:20</td>
-						<td><a href="" class="del">삭제</a></td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td><a href="">두 번째 글입니다.</a></td>
-						<td>정우성</td>
-						<td>3</td>
-						<td>2015-10-02 12:04:12</td>
-						<td><a href="" class="del">삭제</a></td>
-					</tr>
+					<c:forEach items="${requestScope.elist}" var="list">
 					<tr>
 						<td>1</td>
-						<td><a href="">첫 번째 글입니다.</a></td>
-						<td>이효리</td>
+						<td><a href="">${list.title}</a></td>
+						<td>${list.name}</td>
 						<td>3</td>
-						<td>2015-09-25 07:24:32</td>
+						<td>${list.regDate}</td>
 						<td><a href="" class="del">삭제</a></td>
 					</tr>
+					</c:forEach>
 				</table>
 				<div class="pager">
 					<ul>
@@ -70,7 +56,7 @@
 					</ul>
 				</div>				
 				<div class="bottom">
-					<a href="/mysite/board" id="new-book">글쓰기</a>
+					<a href="/mysite/board?a=write" id="new-book">글쓰기</a>
 				</div>				
 			</div>
 		</div>

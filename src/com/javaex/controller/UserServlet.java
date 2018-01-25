@@ -62,7 +62,8 @@ public class UserServlet extends HttpServlet {
 			//System.out.println(email+"/"+password); //로그인 클릭시 제대로 수행되는지 확인
 			
 			UserDao userDao=new UserDao();
-			UserVo userVo=userDao.getUser(email, password);
+			UserVo userVo = new UserVo();
+			userVo = userDao.getUser(email, password);
 			//userVo에 해당하는 no,name을 가지고 있음
 			if(userVo==null) {
 				System.out.println("로그인 실패"); //db 안에 해당 no,name이 없으면 null값임.
@@ -88,7 +89,8 @@ public class UserServlet extends HttpServlet {
 			UserVo authUser=(UserVo)session.getAttribute("authUser");
 			
 			if (authUser==null) {
-				//세션 없다면 로그인폼으로 이동
+				//세션 없다면 로그인폼으로 이동(주소창에 바로 치고 들어오는 사람들이 존재하므로)
+				WebUtil.forward(request, response, "/WEB-INF/views/user/loginform.jsp");
 			} else { //로그인 상태
 				//로그인회원의 no
 				int no=authUser.getNo();
@@ -108,7 +110,8 @@ public class UserServlet extends HttpServlet {
 			UserVo authUser=(UserVo)session.getAttribute("authUser");//UserVo에 맞춰서, 세션공간의 주소값이 authUser에 저장됨.
 			
 			if (authUser==null) {
-				//세션 없다면 로그인폼으로 이동
+				//세션 없다면 로그인폼으로 이동(주소창에 바로 치고 들어오는 사람들이 존재하므로)
+				WebUtil.forward(request, response, "/WEB-INF/views/user/loginform.jsp");
 			} else { //로그인 상태
 				//modifyform에서 변수값 넘겨받기.
 				//vo(no,name,password,gender)을 받아, vo에 저장하기
@@ -125,7 +128,8 @@ public class UserServlet extends HttpServlet {
 				
 				//session에 있는 name도 바뀌어야, main홈에서 사용자의 이름이 바뀜, no는 고유값이므로 바꾸지x
 				authUser.setName(name); //UserVo 클래스이므로, 생성자와 메소드 이용가능. 
-				
+				//authUser는 UserVo클래스의 변수이므로, setter/getter의 모든 것을 사용가능
+				//현재 authUser에는 no,name만 값이 있고, 나머지는 null값임.
 				//main으로 redirect
 				WebUtil.redirect(request, response, "/mysite/main");
 			}
