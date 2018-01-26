@@ -92,13 +92,15 @@ public class BoardServlet extends HttpServlet {
 		} else if ("view".equals(actionform)) {
 			System.out.println("view 진입");
 			int no=Integer.valueOf(request.getParameter("no"));
+
 			//hit update
 			BoardDao dao=new BoardDao();
+
 			dao.update(no);
 			
 			//dao 만든다. select
 			BoardVo boardVo=dao.getBoard(no);
-
+			
 			//보내기
 			request.setAttribute("boardVo", boardVo);
 			WebUtil.forward(request, response, "/WEB-INF/views/board/view.jsp");

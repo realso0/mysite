@@ -38,7 +38,7 @@
 						</tr>
 					</table>
 					<div class="bottom">
-						<a href="/mysite/board?a=list">취소</a>
+						<a href="/mysite/board?a=view&no=${requestScope.boardVo.no}">취소</a>
 						<input type="submit" value="수정">
 					</div>
 				</form>				
