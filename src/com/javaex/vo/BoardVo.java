@@ -5,7 +5,7 @@ public class BoardVo {
 	private String title;
 	private String content;
 	private int hit;
-	private String regDate ;
+	private String regDate;
 	private int userNo;
 	private String name;
 	

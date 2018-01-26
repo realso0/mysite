@@ -27,7 +27,7 @@
 						<table border=1 width=600>
 							<tr>
 								<td>이름</td>
-								<td><input type="text" name="name" value="${sessionScope.authUser.name}"></td>
+								<td><input type="text" name="name" value="${sessionScope.authUser.name}" disabled></td>
 								<td>비밀번호</td>
 								<td><input type="password" name="pass"></td>
 								<td><input type="hidden" name="a" value="add"></td>

@@ -69,25 +69,62 @@ public class BoardServlet extends HttpServlet {
 			dao.insert(vo);
 			
 			WebUtil.redirect(request, response, "/mysite/board?a=list");
-		} else if ("view".equals(actionform)) {
-			
-			
-			WebUtil.forward(request, response, "/WEB-INF/views/board/view.jsp");
 		} else if ("delete".equals(actionform)) {
-			HttpSession session=request.getSession(); //요청문서에서 session번호를 꺼내 저장함.
+//			HttpSession session=request.getSession(); //요청문서에서 session번호를 꺼내 저장함.
 			
 			int no=Integer.valueOf(request.getParameter("no"));
-			int userNo = Integer.valueOf(request.getParameter("userNo"));
-			UserVo authUser=(UserVo)session.getAttribute("authUser");
+			BoardDao dao=new BoardDao();
+			dao.delete(no);
 			
-			if (userNo==authUser.getNo()) {
-				BoardDao dao=new BoardDao();
-				dao.delete(no);
-				WebUtil.redirect(request, response, "/mysite/board?a=list");
-			} else {
-				WebUtil.redirect(request, response, "/mysite/board?a=list");
-			}
+			WebUtil.redirect(request, response, "/mysite/board?a=list");
+//			int userNo = Integer.valueOf(request.getParameter("userNo"));
+//			UserVo authUser=(UserVo)session.getAttribute("authUser");
+//			
+//			if (userNo==authUser.getNo()) {
+//				BoardDao dao=new BoardDao();
+//				dao.delete(no);
+//				WebUtil.redirect(request, response, "/mysite/board?a=list");
+//			} else if (authUser==null) {
+//				WebUtil.redirect(request, response, "/mysite/board?a=list");
+//			} else {
+//				
+//			}
+		} else if ("view".equals(actionform)) {
+			System.out.println("view 진입");
+			int no=Integer.valueOf(request.getParameter("no"));
+			//hit update
+			BoardDao dao=new BoardDao();
+			dao.update(no);
 			
+			//dao 만든다. select
+			BoardVo boardVo=dao.getBoard(no);
+
+			//보내기
+			request.setAttribute("boardVo", boardVo);
+			WebUtil.forward(request, response, "/WEB-INF/views/board/view.jsp");
+		} else if ("modifyform".equals(actionform)) {
+			System.out.println("modifyform 진입");
+			
+			int no=Integer.valueOf(request.getParameter("no"));
+			//no 입력받아서 전부 출력하는 dao 생성
+			BoardDao dao=new BoardDao();
+			BoardVo boardVo=dao.getBoard(no);
+			
+			request.setAttribute("boardVo", boardVo);
+			WebUtil.forward(request, response, "/WEB-INF/views/board/modify.jsp");
+		} else if ("modify".equals(actionform)) {
+			System.out.println("modify 진입");
+			
+			int no=Integer.valueOf(request.getParameter("no"));
+			String title=request.getParameter("title");
+			String content=request.getParameter("content");
+			
+			BoardDao dao=new BoardDao();
+			//update로 db에 값 고치고,
+
+			dao.update(no,title,content);
+			
+			WebUtil.redirect(request, response, "/mysite/board?a=list");
 		}
 	}
 

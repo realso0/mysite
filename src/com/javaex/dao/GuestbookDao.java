@@ -181,7 +181,6 @@ public class GuestbookDao {
 					}
 
 				}
-				return guestList; // list 결과값 출력
-		
+				return guestList; // list 결과값 출력	
 	}
 }
