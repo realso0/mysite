@@ -38,7 +38,7 @@
 		</div>
 		
 		<!-- /footer -->
-		<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
 		
 	</div>
 </body>

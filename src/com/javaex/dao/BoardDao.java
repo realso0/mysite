@@ -13,7 +13,6 @@ import com.javaex.vo.GuestbookVo;
 import com.javaex.vo.UserVo;
 
 public class BoardDao {
-
 	public List<BoardVo> getList() {
 		// 0. import java.sql.*;
 		Connection conn = null;
@@ -35,9 +34,13 @@ public class BoardDao {
 			String query = " select bo.no, " + 
 							"        title, " + 
 							"        content, " + 
-							"        us.name, "
-					+ "        hit, " + "        to_char(reg_date, 'YY-MM-DD HH24:MI') reg_date, " + "        user_no "
-					+ " from board bo, users us " + " where bo.user_no=us.no " + " order by reg_date desc ";
+							"        us.name, " +
+							"        hit, " + 
+							"        to_char(reg_date, 'YY-MM-DD HH24:MI') reg_date, " + 
+							"        user_no " +
+							" from board bo, users us " + 
+							" where bo.user_no=us.no " + 
+							" order by reg_date desc ";
 			pstmt = conn.prepareStatement(query);
 
 			rs = pstmt.executeQuery();
@@ -105,7 +108,8 @@ public class BoardDao {
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 
 			// 3. SQL문 준비 / 바인딩 / 실행
-			String query = " insert into board " + " values (seq_board_id.nextval,?,?,?,sysdate,?) ";
+			String query = " insert into board " + 
+							" values (seq_board_no.nextval,?,?,?,sysdate,?) ";
 			pstmt = conn.prepareStatement(query);
 
 			pstmt.setString(1, vo.getTitle()); // 웹으로부터 값을 받아서, 가져옴.
@@ -160,7 +164,7 @@ public class BoardDao {
 
 			int count = pstmt.executeUpdate();
 
-			// System.out.println(count + "건 삭제완료");
+			System.out.println(count + "건 삭제완료");
 
 			// 4.결과처리
 

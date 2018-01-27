@@ -22,7 +22,7 @@
 			<div id="content">
 				<div id="user">
 	
-					<form id="join-form" name="joinForm" method="get" action="/mysite/user"> 
+					<form id="join-form" name="joinForm" method="post" action="/mysite/user"> 
 					<!-- 앞으로는 슬래시(/) 해주는, 절대경로를 사용할 것 -->
 						
 						<label class="block-label" for="name">이름</label>
@@ -46,7 +46,7 @@
 							<input id="agree-prov" type="checkbox" name="agreeProv" value="y">
 							<label>서비스 약관에 동의합니다.</label>
 						</fieldset>
-						<input type="text" name="a" value="join"> <!-- 무조건 join작업을 수행하도록 지정  text일때는 보임, hidden일 때는 안보임 -->
+						<input type="hidden" name="a" value="join"> <!-- 무조건 join작업을 수행하도록 지정  text일때는 보임, hidden일 때는 안보임 -->
 						
 						<input type="submit" value="가입하기">
 						
@@ -57,8 +57,7 @@
 		</div><!-- /wrapper -->
 		
 		<!-- /footer -->
-		<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
-		
+		<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
 		
 	</div> <!-- /container -->
 

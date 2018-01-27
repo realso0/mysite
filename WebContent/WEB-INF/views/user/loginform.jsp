@@ -23,7 +23,7 @@
 			<div id="content">
 				<div id="user">
 					
-					<form id="login-form" name="loginform" method="get" action="/mysite/user">
+					<form id="login-form" name="loginform" method="post" action="/mysite/user">
 						<input type="hidden" name="a" value="login" /> 
 						
 						<label class="block-label" for="email">이메일</label> 
@@ -43,8 +43,7 @@
 		</div><!-- /wrapper -->
 		
 		<!-- /footer -->
-		<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
-		
+		<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
 		
 	</div> <!-- /container -->
 

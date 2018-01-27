@@ -12,12 +12,11 @@
 	<div id="container">
 
 		<!-- /header -->
-		<jsp:include page="/WEB-INF/views/includes/header.jsp"></jsp:include>
-		
+		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
 		
 		<!-- /navigation -->
-		<jsp:include page="/WEB-INF/views/includes/navigation.jsp"></jsp:include>
-			
+		<c:import url="/WEB-INF/views/includes/navigation.jsp"></c:import>
+	
 		
 		<div id="content">
 			<div id="board">
@@ -45,9 +44,8 @@
 			</div>
 		</div>
 
-		<div id="footer">
-			<p>(c)opyright 2015,2016,2017</p>
-		</div> <!-- /footer -->
+		<!-- /footer -->
+		<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
 	</div>
 </body>
 </html>

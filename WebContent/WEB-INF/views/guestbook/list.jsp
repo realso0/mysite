@@ -13,10 +13,11 @@
 	<div id="container">
 
 		<!-- /header -->
-		<jsp:include page="/WEB-INF/views/includes/header.jsp"></jsp:include>
-
+		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
+			
 		<!-- /navigation -->
-		<jsp:include page="/WEB-INF/views/includes/navigation.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/includes/navigation.jsp"></c:import>
+		
 		<div id="wrapper">
 			<div id="content">
 				<form action="gb" method="post">
@@ -27,7 +28,7 @@
 						<table border=1 width=600>
 							<tr>
 								<td>이름</td>
-								<td><input type="text" name="name" value="${sessionScope.authUser.name}" disabled></td>
+								<td><input type="text" name="name" value="${sessionScope.authUser.name}"></td>
 								<td>비밀번호</td>
 								<td><input type="password" name="pass"></td>
 								<td><input type="hidden" name="a" value="add"></td>
@@ -63,8 +64,7 @@
 			</div>
 		</div>
 		<!-- /footer -->
-		<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
-
+		<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
 	</div>
 </body>
 </html>

@@ -23,7 +23,7 @@
 			<div id="content">
 				<div id="user">
 	
-					<form id="join-form" name="joinForm" method="get" action="/mysite/user">
+					<form id="join-form" name="joinForm" method="post" action="/mysite/user">
 
 						
 						<label class="block-label" for="name">이름</label>
@@ -46,7 +46,7 @@
 							<label>남</label> <input type="radio" name="gender" value="male">
 							</c:if>
 						</fieldset>
-						<input type="text" name="a" value="modify"> <!-- 무조건  modify작업을 수행하도록 지정 -->
+						<input type="hidden" name="a" value="modify"> <!-- 무조건  modify작업을 수행하도록 지정 -->
 						<input type="submit" value="수정완료">
 					</form>
 				</div><!-- /user -->
@@ -54,8 +54,7 @@
 		</div><!-- /wrapper -->
 		
 		<!-- /footer -->
-		<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
-		
+		<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
 		
 	</div> <!-- /container -->
 

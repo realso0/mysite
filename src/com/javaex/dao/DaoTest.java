@@ -1,28 +1,44 @@
 package com.javaex.dao;
 
-import com.javaex.vo.UserVo;
+import java.util.List;
+
+import com.javaex.vo.BoardVo;
 
 public class DaoTest {
-
+	
 	public static void main(String[] args) {
-		UserVo userVo=new UserVo();
+//		List<BoardVo> getList() select테스트
+		BoardDao boardDao=new BoardDao();
+//		
+//		List<BoardVo> blist=boardDao.getList();
+//		
+//		for (BoardVo bvo : blist) {
+//			System.out.println(bvo.toString());
+//		}
+//		
+//		insert(BoardVo vo) insert테스트
+//		BoardVo boardVo=new BoardVo(1,"제목","내용",2,"2018-01-27",3,"소한준");
+//		
+//		boardDao.insert(boardVo);
+//		
+//		delete(int no) delete테스트
+//		boardDao.delete(7);
+//		
+//		hit(int no) update테스트
+//		boardDao.update(1);
+//		
+//		BoardVo getBoard(int no) select테스트
+//		BoardVo vo=boardDao.getBoard(1);
+//		System.out.println(vo.toString());
 		
-		userVo.setName("소한준");
-		//userVo.setEmail("dda@naver.com");
-		userVo.setPassword("sadf");
-		userVo.setGender("male");
-		userVo.setNo(1);
-		
-		UserDao userDao=new UserDao();
-		
-		//userDao.insert(userVo); //insert 테스트, dao의 insert메소드 확인작업
-		
-		//userVo=userDao.getUser("23542", "234");
-		
-		System.out.println(userVo.toString());
-		
-		//userDao.modify(userVo);
-		
+//		update(int no, String title, String content) update테스트
+//		BoardVo vo=boardDao.getBoard(2);
+//		System.out.println(vo.toString());
+//		boardDao.update(2,"안녕못해","안그래");
+//		List<BoardVo> blist=boardDao.getList();
+//		
+//		for (BoardVo bvo : blist) {
+//			System.out.println(bvo.toString());
+//		}
 	}
-
 }

@@ -27,7 +27,6 @@ public class BoardServlet extends HttpServlet {
 		
 		if ("list".equals(actionform)) {
 			System.out.println("list 진입");
-			//게시판인 list는 따로 해줄 작업이 없고, 포워딩만 해주면 됨.
 			
 			BoardDao dao=new BoardDao();
 			List<BoardVo> list=dao.getList(); 
@@ -42,6 +41,7 @@ public class BoardServlet extends HttpServlet {
 			HttpSession session=request.getSession(); //요청문서에서 session번호를 꺼내 저장함.
 			UserVo authUser=(UserVo)session.getAttribute("authUser");
 			
+			//주소로 접속하는 유저 방지
 			if (authUser==null) {
 				//세션 없다면 로그인폼으로 이동(주소창에 바로 치고 들어오는 사람들이 존재하므로)
 				WebUtil.forward(request, response, "/WEB-INF/views/user/loginform.jsp");
@@ -117,6 +117,7 @@ public class BoardServlet extends HttpServlet {
 		} else if ("modify".equals(actionform)) {
 			System.out.println("modify 진입");
 			
+			//modify.jsp에서 입력한 내용 가져오기
 			int no=Integer.valueOf(request.getParameter("no"));
 			String title=request.getParameter("title");
 			String content=request.getParameter("content");
