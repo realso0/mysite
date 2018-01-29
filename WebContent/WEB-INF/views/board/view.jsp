@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<jsp:scriptlet>
+    pageContext.setAttribute("crlf", "\r\n");
+</jsp:scriptlet>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -9,6 +13,7 @@
 	<link href="/mysite/assets/css/board.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+
 	<div id="container">
 
 		<!-- /header -->
@@ -32,7 +37,7 @@
 						<td class="label">내용</td>
 						<td>
 							<div class="view-content">
-								${requestScope.boardVo.content}
+							${fn:replace(requestScope.boardVo.content , crlf, '</br>' )}
 							</div>
 						</td>
 					</tr>

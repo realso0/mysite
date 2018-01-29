@@ -40,7 +40,7 @@ public class BoardDao {
 							"        user_no " +
 							" from board bo, users us " + 
 							" where bo.user_no=us.no " + 
-							" order by reg_date desc ";
+							" order by reg_date desc, bo.no desc ";
 			pstmt = conn.prepareStatement(query);
 
 			rs = pstmt.executeQuery();

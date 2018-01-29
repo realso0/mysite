@@ -70,25 +70,22 @@ public class BoardServlet extends HttpServlet {
 			
 			WebUtil.redirect(request, response, "/mysite/board?a=list");
 		} else if ("delete".equals(actionform)) {
-//			HttpSession session=request.getSession(); //요청문서에서 session번호를 꺼내 저장함.
-			
 			int no=Integer.valueOf(request.getParameter("no"));
+			
 			BoardDao dao=new BoardDao();
 			dao.delete(no);
 			
-			WebUtil.redirect(request, response, "/mysite/board?a=list");
-//			int userNo = Integer.valueOf(request.getParameter("userNo"));
+//			BoardVo boardVo=new BoardVo();
+//			
+//			HttpSession session=request.getSession(); //요청문서에서 session번호를 꺼내 저장함.
 //			UserVo authUser=(UserVo)session.getAttribute("authUser");
 //			
-//			if (userNo==authUser.getNo()) {
+//			if((authUser != null) && (authUser.getNo() == boardVo.getUserNo())) {
 //				BoardDao dao=new BoardDao();
 //				dao.delete(no);
-//				WebUtil.redirect(request, response, "/mysite/board?a=list");
-//			} else if (authUser==null) {
-//				WebUtil.redirect(request, response, "/mysite/board?a=list");
-//			} else {
-//				
 //			}
+			
+			WebUtil.redirect(request, response, "/mysite/board?a=list");
 		} else if ("view".equals(actionform)) {
 			System.out.println("view 진입");
 			int no=Integer.valueOf(request.getParameter("no"));
@@ -111,6 +108,16 @@ public class BoardServlet extends HttpServlet {
 			//no 입력받아서 전부 출력하는 dao 생성
 			BoardDao dao=new BoardDao();
 			BoardVo boardVo=dao.getBoard(no);
+			
+//			HttpSession session=request.getSession();
+//			UserVo authUser=(UserVo)session.getAttribute("authUser");
+//			
+//			if((authUser != null) && (authUser.getNo() == boardVo.getUserNo())) {
+//				request.setAttribute("boardVo", boardVo);
+//				WebUtil.forward(request, response, "/WEB-INF/views/board/modify.jsp");
+//			} else {
+//				WebUtil.redirect(request, response, "/mysite/board?a=list");
+//			}
 			
 			request.setAttribute("boardVo", boardVo);
 			WebUtil.forward(request, response, "/WEB-INF/views/board/modify.jsp");
