@@ -22,7 +22,7 @@ public class BoardServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("board 진입");
-		request.setCharacterEncoding("utf-8");
+		request.setCharacterEncoding("utf-8"); //post방식으로 한글처리를 해주는 메소드
 		String actionform=request.getParameter("a");
 		
 		if ("list".equals(actionform)) {
