@@ -119,7 +119,7 @@ public class BoardServlet extends HttpServlet {
 //				WebUtil.redirect(request, response, "/mysite/board?a=list");
 //			}
 			
-			request.setAttribute("boardVo", boardVo);
+			request.setAttribute("boardVo", boardVo); //객체를 실어 보낼 때 사용
 			WebUtil.forward(request, response, "/WEB-INF/views/board/modify.jsp");
 		} else if ("modify".equals(actionform)) {
 			System.out.println("modify 진입");
