@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.javaex.dao.BoardDao;
-import com.javaex.dao.GuestbookDao;
 import com.javaex.util.WebUtil;
 import com.javaex.vo.BoardVo;
 import com.javaex.vo.UserVo;
@@ -24,6 +23,7 @@ public class BoardServlet extends HttpServlet {
 		System.out.println("board 진입");
 		request.setCharacterEncoding("utf-8"); //post방식으로 한글처리를 해주는 메소드
 		String actionform=request.getParameter("a");
+		
 		
 		if ("list".equals(actionform)) {
 			System.out.println("list 진입");
